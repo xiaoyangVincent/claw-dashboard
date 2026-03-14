@@ -1,20 +1,20 @@
 {
   "meta": {
-    "lastUpdate": "2026-03-14T17:55:00+08:00",
+    "lastUpdate": "2026-03-14T23:06:00+08:00",
     "version": "2.1"
   },
   "stats": {
     "skills": 24,
-    "learnings": 21,
-    "problemsSolved": 11,
+    "learnings": 25,
+    "problemsSolved": 12,
     "activeProjects": 4,
     "todayTasks": 10,
-    "weekInteractions": 70
+    "weekInteractions": 75
   },
   "agentState": {
     "current": "IDLE",
-    "lastTransition": "2026-03-14T17:55:00+08:00",
-    "transitionsToday": 12
+    "lastTransition": "2026-03-14T23:06:00+08:00",
+    "transitionsToday": 15
   },
   "evolution": {
     "confidenceRate": 0.85,
@@ -36,7 +36,7 @@
     "wednesday": 7,
     "thursday": 9,
     "friday": 10,
-    "saturday": 20,
+    "saturday": 25,
     "sunday": 0
   },
   "projects": [
@@ -76,16 +76,16 @@
     }
   ],
   "todayTasks": [
-    {"time": "09:00", "title": "主动学习日 - OpenClaw 核心研究", "done": true, "detail": "Session Tools, Model Failover, Hooks, Compaction"},
+    {"time": "04:07", "title": "主动学习日 - OpenClaw 核心研究", "done": true, "detail": "Session Tools, Model Failover, Hooks, Compaction"},
+    {"time": "09:01", "title": "GitHub 日报发送", "done": true, "detail": "TOP10 项目，飞书+QQ 已发送"},
+    {"time": "09:06", "title": "AI 日报发送", "done": true, "detail": "Grok 4.20 热点，QQ 已发送（飞书失败）"},
     {"time": "12:00", "title": "自我进化框架研究", "done": true, "detail": "SAGE, Reflexion, MemGPT, Token Space Learning"},
     {"time": "13:00", "title": "框架 Phase 1-5 实施", "done": true, "detail": "状态机、智能触发器、记忆管理、技能系统"},
-    {"time": "14:07", "title": "响应延迟问题诊断", "done": true, "detail": "发现长任务阻塞问题，启用 memorySearch"},
     {"time": "15:00", "title": "工作空间文件优化", "done": true, "detail": "AGENTS.md -70%, MEMORY.md -53%"},
-    {"time": "15:45", "title": "深度问题研究", "done": true, "detail": "智能触发机制 + 长任务解决方案"},
-    {"time": "16:00", "title": "全面实施改进方案", "done": true, "detail": "Phase 1-4 全部完成"},
-    {"time": "16:32", "title": "协作面板 v2.0 升级", "done": true, "detail": "数据动态化，集成进化框架"},
-    {"time": "17:00", "title": "GitHub Pages 部署", "done": true, "detail": "手机可访问 https://xiaoyangvincent.github.io/claw-dashboard"},
-    {"time": "21:00", "title": "每日进化任务", "done": false, "detail": "记忆整理、反思沉淀、数据更新"}
+    {"time": "17:00", "title": "GitHub Pages 部署", "done": true, "detail": "https://xiaoyangvincent.github.io/claw-dashboard"},
+    {"time": "21:00", "title": "每日进化任务", "done": true, "detail": "学习+18条，错误3条，报告已发送"},
+    {"time": "22:47", "title": "运行原理深度研究 V2", "done": true, "detail": "LLM运行原理、上下文工程、三层架构"},
+    {"time": "23:00", "title": "协作面板更新", "done": true, "detail": "统计数据更新，进化仪表板更新"}
   ],
   "recentLearnings": [
     {"title": "Token Space Learning", "desc": "Agent 学习优化上下文 C 而非权重 θ", "source": "SAGE/Reflexion 论文"},
@@ -106,7 +106,7 @@
   "systemStatus": {
     "openclaw": "ok",
     "gateway": "ok",
-    "feishu": "ok",
+    "feishu": "warning",
     "qqbot": "ok",
     "gitee": "ok",
     "github": "ok",
@@ -125,15 +125,15 @@
     { "icon": "⚡", "name": "智能触发器" }
   ],
   "timeline": [
-    { "time": "09:00", "content": "主动学习 - OpenClaw 核心研究" },
+    { "time": "04:07", "content": "主动学习 - OpenClaw 核心研究" },
+    { "time": "09:01", "content": "GitHub 日报发送" },
+    { "time": "09:06", "content": "AI 日报发送（飞书失败，QQ 成功）" },
     { "time": "12:00", "content": "自我进化框架设计（Phase 1-5）" },
     { "time": "13:00", "content": "框架实施：状态机+触发器+记忆+技能" },
-    { "time": "14:07", "content": "响应延迟问题诊断与优化" },
     { "time": "15:00", "content": "工作空间文件优化（-70%冗余）" },
-    { "time": "15:45", "content": "深度问题研究（智能触发+长任务）" },
-    { "time": "16:00", "content": "状态机+触发器+架构全面实施" },
-    { "time": "16:32", "content": "协作面板 v2.0 升级" },
     { "time": "17:00", "content": "GitHub Pages 部署成功" },
-    { "time": "17:55", "content": "面板 v2.1：新增详情查看功能" }
+    { "time": "21:00", "content": "每日进化任务完成" },
+    { "time": "22:47", "content": "运行原理深度研究 V2" },
+    { "time": "23:00", "content": "协作面板更新" }
   ]
 }
