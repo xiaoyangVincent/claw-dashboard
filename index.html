@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claw 协作面板</title>
+    <title>Claw 协作面板 v2.1</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -11,7 +11,7 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh; color: #e4e4e7; padding: 15px;
         }
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 900px; margin: 0 auto; }
         
         .header { text-align: center; padding: 15px 0; margin-bottom: 15px; }
         .header h1 { font-size: 1.6rem; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -29,51 +29,93 @@
         .state-error { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
         
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-        .stat-card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .stat-card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.3s; }
+        .stat-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
         .stat-card .value { font-size: 1.4rem; font-weight: bold; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .stat-card .label { color: #94a3b8; margin-top: 3px; font-size: 0.7rem; }
+        .stat-card .trend { font-size: 0.6rem; margin-top: 2px; }
+        .stat-card .trend.up { color: #22c55e; }
+        .stat-card .trend.down { color: #ef4444; }
         .stat-card.highlight { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,212,255,0.15)); }
         
         .card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 14px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 12px; }
-        .card h2 { font-size: 0.85rem; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
+        .card h2 { font-size: 0.85rem; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .card h2:hover { color: #00d4ff; }
+        .card h2 .arrow { margin-left: auto; font-size: 0.7rem; transition: transform 0.3s; }
+        .card.collapsed h2 .arrow { transform: rotate(-90deg); }
+        .card.collapsed .card-content { display: none; }
         
         .evolution-meter { margin-bottom: 8px; }
         .evolution-meter .label { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 3px; }
         .evolution-meter .bar { height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
-        .evolution-meter .bar-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #00d4ff); border-radius: 3px; }
+        .evolution-meter .bar-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #00d4ff); border-radius: 3px; transition: width 0.3s; }
         
         .trigger-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
-        .trigger-item { text-align: center; padding: 6px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+        .trigger-item { text-align: center; padding: 6px; background: rgba(255,255,255,0.03); border-radius: 6px; cursor: pointer; transition: all 0.3s; }
+        .trigger-item:hover { background: rgba(255,255,255,0.08); }
         .trigger-item .count { font-size: 0.95rem; font-weight: bold; color: #00d4ff; }
         .trigger-item .label { font-size: 0.6rem; color: #64748b; margin-top: 1px; }
         
-        .project-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .project-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: all 0.3s; border-radius: 6px; }
+        .project-item:hover { background: rgba(255,255,255,0.05); }
         .project-item:last-child { border-bottom: none; }
-        .project-item .name { font-size: 0.8rem; }
-        .progress-mini { width: 50px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin-left: 8px; }
-        .progress-mini-bar { height: 100%; background: linear-gradient(90deg, #22c55e, #00d4ff); border-radius: 2px; }
-        .status { padding: 2px 6px; border-radius: 10px; font-size: 0.65rem; }
+        .project-item .name { font-size: 0.8rem; font-weight: 500; }
+        .project-item .desc { font-size: 0.65rem; color: #64748b; margin-top: 2px; }
+        .progress-mini { width: 60px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin-left: 8px; }
+        .progress-mini-bar { height: 100%; background: linear-gradient(90deg, #22c55e, #00d4ff); border-radius: 2px; transition: width 0.3s; }
+        .status { padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; }
         .status-active { background: rgba(34,197,94,0.2); color: #22c55e; }
         .status-done { background: rgba(59,130,246,0.2); color: #3b82f6; }
         .status-planned { background: rgba(148,163,184,0.2); color: #94a3b8; }
         
-        .task-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .task-item:last-child { border-bottom: none; }
-        .checkbox { width: 12px; height: 12px; border-radius: 3px; border: 2px solid #64748b; flex-shrink: 0; margin-top: 2px; }
+        .task-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px; border-radius: 6px; cursor: pointer; transition: all 0.3s; }
+        .task-item:hover { background: rgba(255,255,255,0.05); }
+        .checkbox { width: 14px; height: 14px; border-radius: 3px; border: 2px solid #64748b; flex-shrink: 0; margin-top: 2px; }
         .checkbox.done { background: #22c55e; border-color: #22c55e; }
-        .task-item .title { font-size: 0.75rem; }
+        .task-item .title { font-size: 0.8rem; }
         .task-item .title.done { text-decoration: line-through; color: #64748b; }
-        .task-item .meta { font-size: 0.65rem; color: #64748b; }
+        .task-item .meta { font-size: 0.65rem; color: #64748b; margin-top: 2px; }
+        .task-item .detail { font-size: 0.7rem; color: #94a3b8; margin-top: 4px; display: none; }
+        .task-item.expanded .detail { display: block; }
         
-        .timeline-item { display: flex; gap: 8px; padding: 4px 0; border-left: 2px solid rgba(124,58,237,0.3); padding-left: 10px; margin-left: 3px; position: relative; }
-        .timeline-item::before { content: ''; width: 6px; height: 6px; background: #7c3aed; border-radius: 50%; position: absolute; left: -4px; top: 8px; }
-        .timeline-item .time { font-size: 0.65rem; color: #64748b; min-width: 35px; }
-        .timeline-item .content { font-size: 0.75rem; }
+        .skill-item { display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: rgba(124,58,237,0.15); border-radius: 6px; font-size: 0.75rem; color: #a78bfa; margin: 3px; cursor: pointer; transition: all 0.3s; }
+        .skill-item:hover { background: rgba(124,58,237,0.25); transform: scale(1.02); }
+        .skill-item .level { font-size: 0.6rem; opacity: 0.7; }
         
-        .learning-item { padding: 6px; background: rgba(0,212,255,0.05); border-radius: 5px; margin-bottom: 5px; border-left: 2px solid #00d4ff; }
-        .learning-item:last-child { margin-bottom: 0; }
-        .learning-item .title { font-weight: 500; font-size: 0.75rem; }
-        .learning-item .desc { font-size: 0.65rem; color: #94a3b8; margin-top: 1px; }
+        .learning-item { padding: 8px; background: rgba(0,212,255,0.05); border-radius: 6px; margin-bottom: 6px; border-left: 3px solid #00d4ff; cursor: pointer; transition: all 0.3s; }
+        .learning-item:hover { background: rgba(0,212,255,0.1); }
+        .learning-item .title { font-weight: 500; font-size: 0.8rem; display: flex; align-items: center; gap: 6px; }
+        .learning-item .desc { font-size: 0.7rem; color: #94a3b8; margin-top: 3px; }
+        .learning-item .extra { font-size: 0.65rem; color: #64748b; margin-top: 5px; display: none; }
+        .learning-item.expanded .extra { display: block; }
+        
+        .timeline-item { display: flex; gap: 10px; padding: 6px 0; border-left: 2px solid rgba(124,58,237,0.3); padding-left: 12px; margin-left: 3px; position: relative; }
+        .timeline-item::before { content: ''; width: 8px; height: 8px; background: #7c3aed; border-radius: 50%; position: absolute; left: -5px; top: 10px; }
+        .timeline-item .time { font-size: 0.7rem; color: #64748b; min-width: 40px; }
+        .timeline-item .content { font-size: 0.8rem; }
+        
+        .chart-container { margin-top: 10px; height: 80px; display: flex; align-items: flex-end; gap: 4px; }
+        .chart-bar { flex: 1; background: linear-gradient(to top, #00d4ff, #7c3aed); border-radius: 3px 3px 0 0; transition: height 0.3s; position: relative; }
+        .chart-bar:hover { opacity: 0.8; }
+        .chart-bar .value { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 0.6rem; color: #94a3b8; }
+        .chart-labels { display: flex; gap: 4px; margin-top: 4px; }
+        .chart-labels span { flex: 1; text-align: center; font-size: 0.55rem; color: #64748b; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; padding: 20px; overflow-y: auto; }
+        .modal.active { display: flex; align-items: flex-start; justify-content: center; }
+        .modal-content { background: #1a1a2e; border-radius: 12px; max-width: 600px; width: 100%; padding: 20px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .modal-header h3 { font-size: 1.1rem; }
+        .modal-close { background: none; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer; }
+        .modal-close:hover { color: #fff; }
+        
+        .detail-section { margin-bottom: 15px; }
+        .detail-section h4 { font-size: 0.85rem; margin-bottom: 8px; color: #94a3b8; }
+        .detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .detail-item { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; }
+        .detail-item .label { font-size: 0.65rem; color: #64748b; }
+        .detail-item .value { font-size: 0.9rem; margin-top: 2px; }
         
         .footer { text-align: center; padding: 12px; color: #64748b; font-size: 0.7rem; }
         .loading { text-align: center; padding: 30px; color: #64748b; }
@@ -83,114 +125,165 @@
     <div class="container">
         <div class="header">
             <h1>🤝 Claw 协作面板</h1>
-            <div class="subtitle">洋哥 & 小龙 🐱</div>
+            <div class="subtitle">洋哥 & 小龙 🐱 | 自我进化系统 v2.1</div>
             <div class="time" id="currentTime">加载中...</div>
         </div>
         
         <div id="loading" class="loading">正在加载...</div>
         
         <div id="content" style="display: none;">
-            <!-- Stats -->
+            <!-- 核心统计 -->
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card highlight" onclick="showModal('state')">
+                    <div class="value" id="stat-state">-</div>
+                    <div class="label">当前状态</div>
+                    <div class="trend" id="stat-transitions">点击查看详情</div>
+                </div>
+                <div class="stat-card" onclick="showModal('skills')">
                     <div class="value" id="stat-skills">-</div>
                     <div class="label">技能</div>
+                    <div class="trend up" id="stat-skills-trend">-</div>
                 </div>
-                <div class="stat-card highlight">
-                    <div class="value" id="stat-tasks">-</div>
-                    <div class="label">今日任务</div>
-                </div>
-                <div class="stat-card">
+                <div class="stat-card" onclick="showModal('learnings')">
                     <div class="value" id="stat-learnings">-</div>
                     <div class="label">学习</div>
+                    <div class="trend up" id="stat-learnings-trend">-</div>
+                </div>
+                <div class="stat-card" onclick="showModal('tasks')">
+                    <div class="value" id="stat-tasks">-</div>
+                    <div class="label">今日任务</div>
+                    <div class="trend" id="stat-tasks-progress">-</div>
+                </div>
+                <div class="stat-card" onclick="showModal('reflections')">
+                    <div class="value" id="stat-reflections">-</div>
+                    <div class="label">反思</div>
+                    <div class="trend up">持续积累</div>
+                </div>
+                <div class="stat-card" onclick="showModal('patterns')">
+                    <div class="value" id="stat-patterns">-</div>
+                    <div class="label">范式</div>
+                    <div class="trend">已沉淀</div>
                 </div>
             </div>
             
-            <!-- State + Evolution -->
-            <div class="card">
-                <h2>🤖 状态</h2>
-                <div style="margin-bottom: 10px;">
-                    <span id="agent-state" class="state-badge state-idle">IDLE</span>
-                </div>
-                <h2 style="margin-top: 12px;">📊 进化指标</h2>
-                <div class="evolution-meter">
-                    <div class="label"><span>置信度标注率</span><span id="conf-rate">0%</span></div>
-                    <div class="bar"><div class="bar-fill" id="conf-bar" style="width: 0%"></div></div>
-                </div>
-                <div class="evolution-meter">
-                    <div class="label"><span>幻觉率</span><span id="hall-rate">0%</span></div>
-                    <div class="bar"><div class="bar-fill" id="hall-bar" style="width: 0%"></div></div>
-                </div>
-            </div>
-            
-            <!-- Triggers -->
-            <div class="card">
-                <h2>⚡ 触发器</h2>
-                <div class="trigger-grid">
-                    <div class="trigger-item">
-                        <div class="count" id="trigger-conf">0</div>
-                        <div class="label">置信度</div>
+            <!-- 进化指标 -->
+            <div class="card" onclick="showModal('evolution')">
+                <h2>📊 进化指标 <span class="arrow">›</span></h2>
+                <div class="card-content">
+                    <div class="evolution-meter">
+                        <div class="label"><span>置信度标注率</span><span id="conf-rate">0%</span></div>
+                        <div class="bar"><div class="bar-fill" id="conf-bar" style="width: 0%"></div></div>
                     </div>
-                    <div class="trigger-item">
-                        <div class="count" id="trigger-complex">0</div>
-                        <div class="label">复杂度</div>
+                    <div class="evolution-meter">
+                        <div class="label"><span>幻觉率</span><span id="hall-rate">0%</span></div>
+                        <div class="bar"><div class="bar-fill" id="hall-bar" style="width: 0%"></div></div>
                     </div>
-                    <div class="trigger-item">
-                        <div class="count" id="trigger-pattern">0</div>
-                        <div class="label">模式</div>
-                    </div>
-                    <div class="trigger-item">
-                        <div class="count" id="trigger-time">0</div>
-                        <div class="label">时间</div>
-                    </div>
-                    <div class="trigger-item">
-                        <div class="count" id="trigger-error">0</div>
-                        <div class="label">错误</div>
+                    <div class="evolution-meter">
+                        <div class="label"><span>技能熟练度</span><span id="skill-rate">0/10</span></div>
+                        <div class="bar"><div class="bar-fill" id="skill-bar" style="width: 0%"></div></div>
                     </div>
                 </div>
             </div>
             
-            <!-- Projects -->
-            <div class="card">
-                <h2>📁 项目</h2>
-                <div id="projects-list"></div>
+            <!-- 智能触发器 -->
+            <div class="card" onclick="showModal('triggers')">
+                <h2>⚡ 智能触发器 <span class="arrow">›</span></h2>
+                <div class="card-content">
+                    <div class="trigger-grid">
+                        <div class="trigger-item">
+                            <div class="count" id="trigger-conf">0</div>
+                            <div class="label">置信度</div>
+                        </div>
+                        <div class="trigger-item">
+                            <div class="count" id="trigger-complex">0</div>
+                            <div class="label">复杂度</div>
+                        </div>
+                        <div class="trigger-item">
+                            <div class="count" id="trigger-pattern">0</div>
+                            <div class="label">模式</div>
+                        </div>
+                        <div class="trigger-item">
+                            <div class="count" id="trigger-time">0</div>
+                            <div class="label">时间</div>
+                        </div>
+                        <div class="trigger-item">
+                            <div class="count" id="trigger-error">0</div>
+                            <div class="label">错误</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <!-- Tasks -->
+            <!-- 本周趋势 -->
             <div class="card">
-                <h2>✅ 今日任务</h2>
-                <div id="tasks-list"></div>
+                <h2>📈 本周趋势 <span class="arrow">›</span></h2>
+                <div class="card-content">
+                    <div class="chart-container" id="week-chart"></div>
+                    <div class="chart-labels" id="week-labels"></div>
+                </div>
             </div>
             
-            <!-- Learnings -->
+            <!-- 项目进度 -->
             <div class="card">
-                <h2>📚 近期学习</h2>
-                <div id="learnings-list"></div>
+                <h2>📁 项目进度 <span class="arrow">›</span></h2>
+                <div class="card-content" id="projects-list"></div>
             </div>
             
-            <!-- Timeline -->
+            <!-- 今日任务 -->
             <div class="card">
-                <h2>📅 时间线</h2>
-                <div id="timeline-list"></div>
+                <h2>✅ 今日任务 <span class="arrow">›</span></h2>
+                <div class="card-content" id="tasks-list"></div>
+            </div>
+            
+            <!-- 近期学习 -->
+            <div class="card">
+                <h2>📚 近期学习 <span class="arrow">›</span></h2>
+                <div class="card-content" id="learnings-list"></div>
+            </div>
+            
+            <!-- 技能库 -->
+            <div class="card">
+                <h2>🛠️ 技能库 <span class="arrow">›</span></h2>
+                <div class="card-content" id="skills-list"></div>
+            </div>
+            
+            <!-- 时间线 -->
+            <div class="card">
+                <h2>📅 今日时间线 <span class="arrow">›</span></h2>
+                <div class="card-content" id="timeline-list"></div>
             </div>
         </div>
         
         <div class="footer">
-            <p>更新: <span id="update-time">-</span></p>
+            <p>更新: <span id="update-time">-</span> | 面板 v2.1</p>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">详情</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div id="modal-body"></div>
         </div>
     </div>
     
     <script>
+        let data = null;
+        const dayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        const dayLabels = ['一', '二', '三', '四', '五', '六', '日'];
+        
         function updateTime() {
             const now = new Date();
-            const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-            document.getElementById('currentTime').textContent = now.toLocaleDateString('zh-CN', options);
+            document.getElementById('currentTime').textContent = now.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit' });
         }
         
         async function loadData() {
             try {
                 const response = await fetch('dashboard-data.json?t=' + Date.now());
-                const data = await response.json();
+                data = await response.json();
                 render(data);
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
@@ -199,65 +292,308 @@
             }
         }
         
-        function render(data) {
-            document.getElementById('update-time').textContent = data.meta.lastUpdate;
+        function render(d) {
+            document.getElementById('update-time').textContent = d.meta.lastUpdate;
             
-            document.getElementById('stat-skills').textContent = data.evolution.skillsCount;
-            document.getElementById('stat-tasks').textContent = data.stats.todayTasks;
-            document.getElementById('stat-learnings').textContent = data.stats.learnings;
+            // Stats
+            document.getElementById('stat-state').textContent = d.agentState.current;
+            document.getElementById('stat-transitions').textContent = '今日 ' + d.agentState.transitionsToday + ' 次转换';
+            document.getElementById('stat-skills').textContent = d.evolution.skillsCount;
+            document.getElementById('stat-skills-trend').textContent = '+7 本周';
+            document.getElementById('stat-learnings').textContent = d.stats.learnings;
+            document.getElementById('stat-learnings-trend').textContent = '+' + (d.stats.learnings - 7) + ' 本周';
+            document.getElementById('stat-tasks').textContent = d.stats.todayTasks;
+            const completed = d.todayTasks.filter(t => t.done).length;
+            document.getElementById('stat-tasks-progress').textContent = completed + '/' + d.stats.todayTasks + ' 完成';
+            document.getElementById('stat-reflections').textContent = d.evolution.reflectionCount;
+            document.getElementById('stat-patterns').textContent = d.evolution.patternsCount;
             
-            const stateEl = document.getElementById('agent-state');
-            stateEl.textContent = data.agentState.current;
-            stateEl.className = 'state-badge state-' + data.agentState.current.toLowerCase();
-            
-            const confRate = data.evolution.confidenceRate * 100;
+            // Evolution
+            const confRate = d.evolution.confidenceRate * 100;
             document.getElementById('conf-rate').textContent = confRate + '%';
             document.getElementById('conf-bar').style.width = confRate + '%';
             
-            const hallRate = data.evolution.hallucinationRate * 100;
-            document.getElementById('hall-rate').textContent = hallRate + '%';
+            const hallRate = d.evolution.hallucinationRate * 100;
+            document.getElementById('hall-rate').textContent = hallRate.toFixed(0) + '%';
             document.getElementById('hall-bar').style.width = (100 - hallRate) + '%';
             
-            document.getElementById('trigger-conf').textContent = data.evolution.triggers.confidence;
-            document.getElementById('trigger-complex').textContent = data.evolution.triggers.complexity;
-            document.getElementById('trigger-pattern').textContent = data.evolution.triggers.pattern;
-            document.getElementById('trigger-time').textContent = data.evolution.triggers.time;
-            document.getElementById('trigger-error').textContent = data.evolution.triggers.error;
+            document.getElementById('skill-rate').textContent = d.evolution.skillsCount + '/10';
+            document.getElementById('skill-bar').style.width = (d.evolution.skillsCount * 10) + '%';
             
-            document.getElementById('projects-list').innerHTML = data.projects.map(p => `
-                <div class="project-item">
-                    <div style="display: flex; align-items: center;">
-                        <span class="name">${p.name}</span>
-                        <div class="progress-mini"><div class="progress-mini-bar" style="width: ${p.progress}%"></div></div>
+            // Triggers
+            document.getElementById('trigger-conf').textContent = d.evolution.triggers.confidence;
+            document.getElementById('trigger-complex').textContent = d.evolution.triggers.complexity;
+            document.getElementById('trigger-pattern').textContent = d.evolution.triggers.pattern;
+            document.getElementById('trigger-time').textContent = d.evolution.triggers.time;
+            document.getElementById('trigger-error').textContent = d.evolution.triggers.error;
+            
+            // Week Chart
+            const weekData = dayNames.map(n => d.weekOverview[n]);
+            const maxVal = Math.max(...weekData);
+            document.getElementById('week-chart').innerHTML = weekData.map((v, i) => 
+                '<div class="chart-bar" style="height: ' + (v / maxVal * 100) + '%"><span class="value">' + v + '</span></div>'
+            ).join('');
+            document.getElementById('week-labels').innerHTML = dayLabels.map(l => '<span>' + l + '</span>').join('');
+            
+            // Projects
+            document.getElementById('projects-list').innerHTML = d.projects.map(p => `
+                <div class="project-item" onclick="showModal('project', '${p.name}')">
+                    <div>
+                        <div class="name">${p.name}</div>
+                        <div style="display: flex; align-items: center; margin-top: 4px;">
+                            <div class="progress-mini"><div class="progress-mini-bar" style="width: ${p.progress}%"></div></div>
+                            <span style="font-size: 0.7rem; color: #64748b; margin-left: 8px;">${p.progress}%</span>
+                        </div>
                     </div>
-                    <span class="status status-${p.status}">${p.progress}%</span>
+                    <span class="status status-${p.status}">${p.status === 'done' ? '完成' : p.status === 'active' ? '进行中' : '规划中'}</span>
                 </div>
             `).join('');
             
-            document.getElementById('tasks-list').innerHTML = data.todayTasks.map(t => `
-                <div class="task-item">
+            // Tasks
+            document.getElementById('tasks-list').innerHTML = d.todayTasks.map(t => `
+                <div class="task-item" onclick="this.classList.toggle('expanded')">
                     <div class="checkbox ${t.done ? 'done' : ''}"></div>
-                    <div>
+                    <div style="flex: 1">
                         <div class="title ${t.done ? 'done' : ''}">${t.title}</div>
                         <div class="meta">${t.time}</div>
                     </div>
                 </div>
             `).join('');
             
-            document.getElementById('learnings-list').innerHTML = data.recentLearnings.slice(0, 3).map(l => `
-                <div class="learning-item">
+            // Learnings
+            document.getElementById('learnings-list').innerHTML = d.recentLearnings.map(l => `
+                <div class="learning-item" onclick="this.classList.toggle('expanded')">
                     <div class="title">${l.title}</div>
                     <div class="desc">${l.desc}</div>
                 </div>
             `).join('');
             
-            document.getElementById('timeline-list').innerHTML = data.timeline.slice(0, 6).map(t => `
+            // Skills
+            const skills = [
+                { name: 'Markdown读取', level: 'Lv3' },
+                { name: 'PowerShell编码', level: 'Lv3' },
+                { name: '.NET DTO设计', level: 'Lv2' },
+                { name: 'MySQL查询', level: 'Lv2' },
+                { name: 'Git分支管理', level: 'Lv2' },
+                { name: '需求澄清', level: 'Lv2' },
+                { name: 'Gitee强制添加', level: 'Lv1' }
+            ];
+            document.getElementById('skills-list').innerHTML = '<div style="display: flex; flex-wrap: wrap;">' + 
+                skills.map(s => '<div class="skill-item" onclick="showModal(\'skill\', \'' + s.name + '\')">' + s.name + ' <span class="level">' + s.level + '</span></div>').join('') + '</div>';
+            
+            // Timeline
+            document.getElementById('timeline-list').innerHTML = d.timeline.slice(0, 8).map(t => `
                 <div class="timeline-item">
                     <div class="time">${t.time}</div>
                     <div class="content">${t.content}</div>
                 </div>
             `).join('');
         }
+        
+        function showModal(type, name) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+            
+            switch(type) {
+                case 'state':
+                    title.textContent = '🤖 状态机详情';
+                    body.innerHTML = `
+                        <div class="detail-section">
+                            <h4>当前状态</h4>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <div class="label">状态</div>
+                                    <div class="value">${data.agentState.current}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">今日转换</div>
+                                    <div class="value">${data.agentState.transitionsToday} 次</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-section">
+                            <h4>状态说明</h4>
+                            <div style="font-size: 0.8rem; color: #94a3b8; line-height: 1.6;">
+                                <p><b>IDLE</b> - 空闲，等待用户输入</p>
+                                <p><b>WORKING</b> - 工作中，执行任务</p>
+                                <p><b>REFLECT</b> - 反思中，分析结果</p>
+                                <p><b>LEARN</b> - 学习中，提取技能</p>
+                                <p><b>ERROR</b> - 错误处理</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'evolution':
+                    title.textContent = '📊 进化指标详情';
+                    body.innerHTML = `
+                        <div class="detail-section">
+                            <h4>核心指标</h4>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <div class="label">置信度标注率</div>
+                                    <div class="value">${(data.evolution.confidenceRate * 100).toFixed(0)}%</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">幻觉率</div>
+                                    <div class="value">${(data.evolution.hallucinationRate * 100).toFixed(0)}%</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">技能数量</div>
+                                    <div class="value">${data.evolution.skillsCount}/10</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">范式数量</div>
+                                    <div class="value">${data.evolution.patternsCount}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-section">
+                            <h4>目标</h4>
+                            <div style="font-size: 0.8rem; color: #94a3b8;">
+                                <p>• 置信度标注率：目标 100%</p>
+                                <p>• 幻觉率：目标 <5%</p>
+                                <p>• 技能积累：目标持续增长</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'triggers':
+                    title.textContent = '⚡ 智能触发器详情';
+                    body.innerHTML = `
+                        <div class="detail-section">
+                            <h4>触发统计</h4>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <div class="label">置信度触发</div>
+                                    <div class="value">${data.evolution.triggers.confidence} 次</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">复杂度触发</div>
+                                    <div class="value">${data.evolution.triggers.complexity} 次</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">模式检测</div>
+                                    <div class="value">${data.evolution.triggers.pattern} 次</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">时间阈值</div>
+                                    <div class="value">${data.evolution.triggers.time} 次</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="label">错误触发</div>
+                                    <div class="value">${data.evolution.triggers.error} 次</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-section">
+                            <h4>触发条件</h4>
+                            <div style="font-size: 0.8rem; color: #94a3b8; line-height: 1.8;">
+                                <p><b>置信度</b>：置信度 < 3 时自动反思</p>
+                                <p><b>复杂度</b>：步骤 > 10 时报告进度</p>
+                                <p><b>模式</b>：重复操作 ≥3 次时提取技能</p>
+                                <p><b>时间</b>：耗时 > 预期 2 倍时反思</p>
+                                <p><b>错误</b>：工具失败时自动分析</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'skills':
+                    title.textContent = '🛠️ 技能库详情';
+                    body.innerHTML = `
+                        <div class="detail-section">
+                            <h4>技能列表</h4>
+                            <div style="font-size: 0.8rem; line-height: 2;">
+                                <p><b>Lv3 熟练</b>：Markdown读取、PowerShell编码</p>
+                                <p><b>Lv2 已验证</b>：.NET DTO设计、MySQL查询、Git分支、需求澄清</p>
+                                <p><b>Lv1 新习得</b>：Gitee强制添加</p>
+                            </div>
+                        </div>
+                        <div class="detail-section">
+                            <h4>等级说明</h4>
+                            <div style="font-size: 0.8rem; color: #94a3b8;">
+                                <p>Lv1：成功应用 1 次</p>
+                                <p>Lv2：成功应用 ≥3 次</p>
+                                <p>Lv3：成功应用 ≥10 次</p>
+                                <p>Lv4：成功应用 ≥20 次</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'learnings':
+                    title.textContent = '📚 学习记录详情';
+                    body.innerHTML = `
+                        <div class="detail-section">
+                            <h4>近期学习</h4>
+                            ${data.recentLearnings.map(l => `
+                                <div class="learning-item" style="margin-bottom: 10px;">
+                                    <div class="title">${l.title}</div>
+                                    <div class="desc">${l.desc}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+                case 'tasks':
+                    title.textContent = '✅ 任务详情';
+                    const completedTasks = data.todayTasks.filter(t => t.done);
+                    const pendingTasks = data.todayTasks.filter(t => !t.done);
+                    body.innerHTML = `
+                        <div class="detail-section">
+                            <h4>已完成 (${completedTasks.length})</h4>
+                            <div style="font-size: 0.8rem; color: #22c55e; line-height: 1.8;">
+                                ${completedTasks.map(t => '<p>✓ ' + t.time + ' ' + t.title + '</p>').join('')}
+                            </div>
+                        </div>
+                        <div class="detail-section">
+                            <h4>待完成 (${pendingTasks.length})</h4>
+                            <div style="font-size: 0.8rem; color: #94a3b8; line-height: 1.8;">
+                                ${pendingTasks.map(t => '<p>○ ' + t.time + ' ' + t.title + '</p>').join('')}
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'reflections':
+                    title.textContent = '📝 反思记录';
+                    body.innerHTML = `
+                        <div class="detail-section">
+                            <h4>反思条目</h4>
+                            <div style="font-size: 0.8rem; line-height: 1.8;">
+                                <p><b>RFL-001 深度调研任务</b></p>
+                                <p style="color: #94a3b8;">成功度 4/5，长任务需提前告知用户预计时间</p>
+                                <p style="margin-top: 10px;"><b>RFL-002 响应延迟问题处理</b></p>
+                                <p style="color: #94a3b8;">成功度 3/5，需要任务后台执行机制</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'patterns':
+                    title.textContent = '📋 范式库';
+                    body.innerHTML = `
+                        <div class="detail-section">
+                            <h4>已沉淀范式</h4>
+                            <div style="font-size: 0.8rem; line-height: 2;">
+                                <p><b>PATTERN-001</b>：依赖注入问题排查</p>
+                                <p><b>PATTERN-002</b>：JSON字段名不匹配</p>
+                                <p><b>PATTERN-003</b>：Harness Engineering</p>
+                                <p><b>PATTERN-004</b>：Windows服务异常</p>
+                                <p><b>PATTERN-005</b>：记忆搜索优先</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            modal.classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+        
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
         
         updateTime();
         loadData();
