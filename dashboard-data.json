@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "lastUpdate": "2026-03-14T16:35:00+08:00",
+    "version": "2.0"
+  },
+  "stats": {
+    "skills": 24,
+    "learnings": 21,
+    "problemsSolved": 11,
+    "activeProjects": 4,
+    "todayTasks": 10,
+    "weekInteractions": 60
+  },
+  "agentState": {
+    "current": "IDLE",
+    "lastTransition": "2026-03-14T16:00:00+08:00",
+    "transitionsToday": 8
+  },
+  "evolution": {
+    "confidenceRate": 0,
+    "hallucinationRate": 0,
+    "reflectionCount": 2,
+    "skillsCount": 7,
+    "patternsCount": 5,
+    "triggers": {
+      "confidence": 0,
+      "complexity": 0,
+      "pattern": 0,
+      "time": 0,
+      "error": 1
+    }
+  },
+  "weekOverview": {
+    "monday": 8,
+    "tuesday": 5,
+    "wednesday": 7,
+    "thursday": 9,
+    "friday": 10,
+    "saturday": 15,
+    "sunday": 0
+  },
+  "projects": [
+    {
+      "name": "自我进化框架",
+      "progress": 100,
+      "status": "done"
+    },
+    {
+      "name": "首程病历项目",
+      "progress": 65,
+      "status": "active"
+    },
+    {
+      "name": "OLM 项目",
+      "progress": 40,
+      "status": "active"
+    },
+    {
+      "name": "协作管理系统",
+      "progress": 10,
+      "status": "planned"
+    },
+    {
+      "name": "婚礼攻略",
+      "progress": 100,
+      "status": "done"
+    }
+  ],
+  "todayTasks": [
+    {
+      "time": "09:00",
+      "title": "主动学习日 - OpenClaw 研究",
+      "done": true
+    },
+    {
+      "time": "12:00",
+      "title": "自我进化框架研究",
+      "done": true
+    },
+    {
+      "time": "13:00",
+      "title": "框架 Phase 1-5 实施",
+      "done": true
+    },
+    {
+      "time": "14:00",
+      "title": "响应延迟问题诊断",
+      "done": true
+    },
+    {
+      "time": "15:00",
+      "title": "工作空间文件优化",
+      "done": true
+    },
+    {
+      "time": "15:30",
+      "title": "深度问题研究（智能触发+长任务）",
+      "done": true
+    },
+    {
+      "time": "16:00",
+      "title": "状态机+触发器+长任务架构实施",
+      "done": true
+    },
+    {
+      "time": "16:20",
+      "title": "协作面板评估与改进",
+      "done": true
+    },
+    {
+      "time": "21:00",
+      "title": "每日进化任务",
+      "done": false
+    },
+    {
+      "time": "23:30",
+      "title": "工作区 Git 同步",
+      "done": false
+    }
+  ],
+  "recentLearnings": [
+    {
+      "title": "Token Space Learning",
+      "desc": "Agent 学习优化上下文 C 而非权重 θ"
+    },
+    {
+      "title": "四层记忆架构",
+      "desc": "L1-L4 分层，Ebbinghaus 遗忘曲线"
+    },
+    {
+      "title": "状态机驱动",
+      "desc": "IDLE→WORKING→REFLECT→LEARN→IDLE"
+    },
+    {
+      "title": "智能触发器",
+      "desc": "置信度/复杂度/模式/时间/错误 5种"
+    },
+    {
+      "title": "长任务架构",
+      "desc": "分片+持久化+委托+进度输出"
+    }
+  ],
+  "recentReflections": [
+    {
+      "title": "深度调研任务",
+      "success": 4,
+      "improvement": "长任务需提前告知用户预计时间"
+    },
+    {
+      "title": "响应延迟问题处理",
+      "success": 3,
+      "improvement": "需要任务后台执行机制"
+    }
+  ],
+  "goals": [
+    {
+      "icon": "🏃",
+      "title": "减肥 15 斤",
+      "sub": "每周运动 ≥ 5 次",
+      "progress": 30
+    },
+    {
+      "icon": "⚡",
+      "title": "改善生活习惯",
+      "sub": "调整作息时间",
+      "progress": 50
+    },
+    {
+      "icon": "🚀",
+      "title": "OpenClaw 生态优化",
+      "sub": "自我进化框架完成",
+      "progress": 90
+    }
+  ],
+  "systemStatus": {
+    "openclaw": "ok",
+    "gateway": "ok",
+    "feishu": "ok",
+    "qqbot": "ok",
+    "gitee": "ok",
+    "mysql": "ok"
+  },
+  "capabilities": [
+    { "icon": "📝", "name": "飞书文档读写" },
+    { "icon": "🔍", "name": "网页搜索/抓取" },
+    { "icon": "💾", "name": "MySQL 数据查询" },
+    { "icon": "📊", "name": "PDF/图片分析" },
+    { "icon": "⏰", "name": "定时任务调度" },
+    { "icon": "🤝", "name": "QQ/飞书消息" },
+    { "icon": "💻", "name": "Claude Code 协作" },
+    { "icon": "🧠", "name": "记忆与学习" },
+    { "icon": "🤖", "name": "状态机驱动" },
+    { "icon": "⚡", "name": "智能触发器" }
+  ],
+  "timeline": [
+    { "time": "09:00", "content": "主动学习 - OpenClaw 核心研究" },
+    { "time": "12:00", "content": "自我进化框架设计（Phase 1-5）" },
+    { "time": "14:07", "content": "响应延迟问题诊断与优化" },
+    { "time": "15:00", "content": "工作空间文件优化（-70%冗余）" },
+    { "time": "15:45", "content": "深度问题研究（智能触发+长任务）" },
+    { "time": "16:00", "content": "状态机+触发器+架构全面实施" }
+  ]
+}

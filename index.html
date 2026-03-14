@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claw 协作面板</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh; color: #e4e4e7; padding: 15px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        .header { text-align: center; padding: 15px 0; margin-bottom: 15px; }
+        .header h1 { font-size: 1.6rem; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header .subtitle { color: #94a3b8; font-size: 0.85rem; margin-top: 5px; }
+        .header .time { color: #64748b; margin-top: 6px; font-size: 0.75rem; }
+        
+        .state-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 4px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 500;
+        }
+        .state-idle { background: rgba(148, 163, 184, 0.2); color: #94a3b8; }
+        .state-working { background: rgba(0, 212, 255, 0.2); color: #00d4ff; }
+        .state-reflect { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .state-learn { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .state-error { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+        .stat-card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .stat-card .value { font-size: 1.4rem; font-weight: bold; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-card .label { color: #94a3b8; margin-top: 3px; font-size: 0.7rem; }
+        .stat-card.highlight { background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,212,255,0.15)); }
+        
+        .card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 14px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 12px; }
+        .card h2 { font-size: 0.85rem; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
+        
+        .evolution-meter { margin-bottom: 8px; }
+        .evolution-meter .label { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 3px; }
+        .evolution-meter .bar { height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+        .evolution-meter .bar-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #00d4ff); border-radius: 3px; }
+        
+        .trigger-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+        .trigger-item { text-align: center; padding: 6px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+        .trigger-item .count { font-size: 0.95rem; font-weight: bold; color: #00d4ff; }
+        .trigger-item .label { font-size: 0.6rem; color: #64748b; margin-top: 1px; }
+        
+        .project-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .project-item:last-child { border-bottom: none; }
+        .project-item .name { font-size: 0.8rem; }
+        .progress-mini { width: 50px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin-left: 8px; }
+        .progress-mini-bar { height: 100%; background: linear-gradient(90deg, #22c55e, #00d4ff); border-radius: 2px; }
+        .status { padding: 2px 6px; border-radius: 10px; font-size: 0.65rem; }
+        .status-active { background: rgba(34,197,94,0.2); color: #22c55e; }
+        .status-done { background: rgba(59,130,246,0.2); color: #3b82f6; }
+        .status-planned { background: rgba(148,163,184,0.2); color: #94a3b8; }
+        
+        .task-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .task-item:last-child { border-bottom: none; }
+        .checkbox { width: 12px; height: 12px; border-radius: 3px; border: 2px solid #64748b; flex-shrink: 0; margin-top: 2px; }
+        .checkbox.done { background: #22c55e; border-color: #22c55e; }
+        .task-item .title { font-size: 0.75rem; }
+        .task-item .title.done { text-decoration: line-through; color: #64748b; }
+        .task-item .meta { font-size: 0.65rem; color: #64748b; }
+        
+        .timeline-item { display: flex; gap: 8px; padding: 4px 0; border-left: 2px solid rgba(124,58,237,0.3); padding-left: 10px; margin-left: 3px; position: relative; }
+        .timeline-item::before { content: ''; width: 6px; height: 6px; background: #7c3aed; border-radius: 50%; position: absolute; left: -4px; top: 8px; }
+        .timeline-item .time { font-size: 0.65rem; color: #64748b; min-width: 35px; }
+        .timeline-item .content { font-size: 0.75rem; }
+        
+        .learning-item { padding: 6px; background: rgba(0,212,255,0.05); border-radius: 5px; margin-bottom: 5px; border-left: 2px solid #00d4ff; }
+        .learning-item:last-child { margin-bottom: 0; }
+        .learning-item .title { font-weight: 500; font-size: 0.75rem; }
+        .learning-item .desc { font-size: 0.65rem; color: #94a3b8; margin-top: 1px; }
+        
+        .footer { text-align: center; padding: 12px; color: #64748b; font-size: 0.7rem; }
+        .loading { text-align: center; padding: 30px; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤝 Claw 协作面板</h1>
+            <div class="subtitle">洋哥 & 小龙 🐱</div>
+            <div class="time" id="currentTime">加载中...</div>
+        </div>
+        
+        <div id="loading" class="loading">正在加载...</div>
+        
+        <div id="content" style="display: none;">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="value" id="stat-skills">-</div>
+                    <div class="label">技能</div>
+                </div>
+                <div class="stat-card highlight">
+                    <div class="value" id="stat-tasks">-</div>
+                    <div class="label">今日任务</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="stat-learnings">-</div>
+                    <div class="label">学习</div>
+                </div>
+            </div>
+            
+            <!-- State + Evolution -->
+            <div class="card">
+                <h2>🤖 状态</h2>
+                <div style="margin-bottom: 10px;">
+                    <span id="agent-state" class="state-badge state-idle">IDLE</span>
+                </div>
+                <h2 style="margin-top: 12px;">📊 进化指标</h2>
+                <div class="evolution-meter">
+                    <div class="label"><span>置信度标注率</span><span id="conf-rate">0%</span></div>
+                    <div class="bar"><div class="bar-fill" id="conf-bar" style="width: 0%"></div></div>
+                </div>
+                <div class="evolution-meter">
+                    <div class="label"><span>幻觉率</span><span id="hall-rate">0%</span></div>
+                    <div class="bar"><div class="bar-fill" id="hall-bar" style="width: 0%"></div></div>
+                </div>
+            </div>
+            
+            <!-- Triggers -->
+            <div class="card">
+                <h2>⚡ 触发器</h2>
+                <div class="trigger-grid">
+                    <div class="trigger-item">
+                        <div class="count" id="trigger-conf">0</div>
+                        <div class="label">置信度</div>
+                    </div>
+                    <div class="trigger-item">
+                        <div class="count" id="trigger-complex">0</div>
+                        <div class="label">复杂度</div>
+                    </div>
+                    <div class="trigger-item">
+                        <div class="count" id="trigger-pattern">0</div>
+                        <div class="label">模式</div>
+                    </div>
+                    <div class="trigger-item">
+                        <div class="count" id="trigger-time">0</div>
+                        <div class="label">时间</div>
+                    </div>
+                    <div class="trigger-item">
+                        <div class="count" id="trigger-error">0</div>
+                        <div class="label">错误</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projects -->
+            <div class="card">
+                <h2>📁 项目</h2>
+                <div id="projects-list"></div>
+            </div>
+            
+            <!-- Tasks -->
+            <div class="card">
+                <h2>✅ 今日任务</h2>
+                <div id="tasks-list"></div>
+            </div>
+            
+            <!-- Learnings -->
+            <div class="card">
+                <h2>📚 近期学习</h2>
+                <div id="learnings-list"></div>
+            </div>
+            
+            <!-- Timeline -->
+            <div class="card">
+                <h2>📅 时间线</h2>
+                <div id="timeline-list"></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>更新: <span id="update-time">-</span></p>
+        </div>
+    </div>
+    
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('currentTime').textContent = now.toLocaleDateString('zh-CN', options);
+        }
+        
+        async function loadData() {
+            try {
+                const response = await fetch('dashboard-data.json?t=' + Date.now());
+                const data = await response.json();
+                render(data);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            } catch (error) {
+                document.getElementById('loading').textContent = '加载失败';
+            }
+        }
+        
+        function render(data) {
+            document.getElementById('update-time').textContent = data.meta.lastUpdate;
+            
+            document.getElementById('stat-skills').textContent = data.evolution.skillsCount;
+            document.getElementById('stat-tasks').textContent = data.stats.todayTasks;
+            document.getElementById('stat-learnings').textContent = data.stats.learnings;
+            
+            const stateEl = document.getElementById('agent-state');
+            stateEl.textContent = data.agentState.current;
+            stateEl.className = 'state-badge state-' + data.agentState.current.toLowerCase();
+            
+            const confRate = data.evolution.confidenceRate * 100;
+            document.getElementById('conf-rate').textContent = confRate + '%';
+            document.getElementById('conf-bar').style.width = confRate + '%';
+            
+            const hallRate = data.evolution.hallucinationRate * 100;
+            document.getElementById('hall-rate').textContent = hallRate + '%';
+            document.getElementById('hall-bar').style.width = (100 - hallRate) + '%';
+            
+            document.getElementById('trigger-conf').textContent = data.evolution.triggers.confidence;
+            document.getElementById('trigger-complex').textContent = data.evolution.triggers.complexity;
+            document.getElementById('trigger-pattern').textContent = data.evolution.triggers.pattern;
+            document.getElementById('trigger-time').textContent = data.evolution.triggers.time;
+            document.getElementById('trigger-error').textContent = data.evolution.triggers.error;
+            
+            document.getElementById('projects-list').innerHTML = data.projects.map(p => `
+                <div class="project-item">
+                    <div style="display: flex; align-items: center;">
+                        <span class="name">${p.name}</span>
+                        <div class="progress-mini"><div class="progress-mini-bar" style="width: ${p.progress}%"></div></div>
+                    </div>
+                    <span class="status status-${p.status}">${p.progress}%</span>
+                </div>
+            `).join('');
+            
+            document.getElementById('tasks-list').innerHTML = data.todayTasks.map(t => `
+                <div class="task-item">
+                    <div class="checkbox ${t.done ? 'done' : ''}"></div>
+                    <div>
+                        <div class="title ${t.done ? 'done' : ''}">${t.title}</div>
+                        <div class="meta">${t.time}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('learnings-list').innerHTML = data.recentLearnings.slice(0, 3).map(l => `
+                <div class="learning-item">
+                    <div class="title">${l.title}</div>
+                    <div class="desc">${l.desc}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('timeline-list').innerHTML = data.timeline.slice(0, 6).map(t => `
+                <div class="timeline-item">
+                    <div class="time">${t.time}</div>
+                    <div class="content">${t.content}</div>
+                </div>
+            `).join('');
+        }
+        
+        updateTime();
+        loadData();
+        setInterval(updateTime, 60000);
+        setInterval(loadData, 60000);
+    </script>
+</body>
+</html>
