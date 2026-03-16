@@ -1,42 +1,42 @@
 {
   "meta": {
-    "lastUpdate": "2026-03-14T23:06:00+08:00",
+    "lastUpdate": "2026-03-16T14:35:00+08:00",
     "version": "2.1"
   },
   "stats": {
     "skills": 24,
-    "learnings": 25,
+    "learnings": 35,
     "problemsSolved": 12,
     "activeProjects": 4,
-    "todayTasks": 10,
+    "todayTasks": 8,
     "weekInteractions": 75
   },
   "agentState": {
-    "current": "IDLE",
-    "lastTransition": "2026-03-14T23:06:00+08:00",
-    "transitionsToday": 15
+    "current": "WORKING",
+    "lastTransition": "2026-03-16T14:35:00+08:00",
+    "transitionsToday": 5
   },
   "evolution": {
-    "confidenceRate": 0.85,
+    "confidenceRate": 0.90,
     "hallucinationRate": 0.02,
-    "reflectionCount": 2,
+    "reflectionCount": 3,
     "skillsCount": 7,
-    "patternsCount": 5,
+    "patternsCount": 6,
     "triggers": {
-      "confidence": 3,
-      "complexity": 2,
-      "pattern": 1,
+      "confidence": 4,
+      "complexity": 3,
+      "pattern": 2,
       "time": 1,
       "error": 1
     }
   },
   "weekOverview": {
-    "monday": 8,
-    "tuesday": 5,
-    "wednesday": 7,
-    "thursday": 9,
-    "friday": 10,
-    "saturday": 25,
+    "monday": 12,
+    "tuesday": 0,
+    "wednesday": 0,
+    "thursday": 0,
+    "friday": 0,
+    "saturday": 0,
     "sunday": 0
   },
   "projects": [
@@ -44,8 +44,8 @@
       "name": "自我进化框架",
       "progress": 100,
       "status": "done",
-      "description": "完成 Phase 1-5，建立完整自我进化能力",
-      "files": ["SELF_EVOLUTION_FRAMEWORK.md", "AGENT_STATE_MACHINE.md", "SMART_TRIGGERS.md", "LONG_TASK_ARCHITECTURE.md"]
+      "description": "完成 Phase 1-5 + Runtime Enforcement 研究",
+      "files": ["SELF_EVOLUTION_FRAMEWORK.md", "AGENT_STATE_MACHINE.md", "SMART_TRIGGERS.md", "LONG_TASK_ARCHITECTURE.md", "REFLEXION_ENGINE.md"]
     },
     {
       "name": "首程病历项目",
@@ -76,41 +76,40 @@
     }
   ],
   "todayTasks": [
-    {"time": "04:07", "title": "主动学习日 - OpenClaw 核心研究", "done": true, "detail": "Session Tools, Model Failover, Hooks, Compaction"},
-    {"time": "09:01", "title": "GitHub 日报发送", "done": true, "detail": "TOP10 项目，飞书+QQ 已发送"},
-    {"time": "09:06", "title": "AI 日报发送", "done": true, "detail": "Grok 4.20 热点，QQ 已发送（飞书失败）"},
-    {"time": "12:00", "title": "自我进化框架研究", "done": true, "detail": "SAGE, Reflexion, MemGPT, Token Space Learning"},
-    {"time": "13:00", "title": "框架 Phase 1-5 实施", "done": true, "detail": "状态机、智能触发器、记忆管理、技能系统"},
-    {"time": "15:00", "title": "工作空间文件优化", "done": true, "detail": "AGENTS.md -70%, MEMORY.md -53%"},
-    {"time": "17:00", "title": "GitHub Pages 部署", "done": true, "detail": "https://xiaoyangvincent.github.io/claw-dashboard"},
-    {"time": "21:00", "title": "每日进化任务", "done": true, "detail": "学习+18条，错误3条，报告已发送"},
-    {"time": "22:47", "title": "运行原理深度研究 V2", "done": true, "detail": "LLM运行原理、上下文工程、三层架构"},
-    {"time": "23:00", "title": "协作面板更新", "done": true, "detail": "统计数据更新，进化仪表板更新"}
+    {"time": "09:00", "title": "GitHub日报", "done": true, "detail": "自动发送"},
+    {"time": "10:29", "title": "Memory Search 优化", "done": true, "detail": "智谱 embedding-3 + 混合检索"},
+    {"time": "10:52", "title": "Gateway 故障修复", "done": true, "detail": "Paused → Running"},
+    {"time": "11:41", "title": "框架验证测试", "done": true, "detail": "CLI搜索 + 工具测试"},
+    {"time": "12:53", "title": "OpenClaw 更新 3.13", "done": true, "detail": "2026.3.11 → 2026.3.13"},
+    {"time": "13:28", "title": "流式传输优化", "done": true, "detail": "minChars 800→2000, maxChars 1200→3000"},
+    {"time": "13:39", "title": "框架执行机制研究", "done": true, "detail": "Runtime Enforcement + Reflexion + 行为守卫"},
+    {"time": "14:26", "title": "新会话启动", "done": true, "detail": "周一记忆维护日"}
   ],
   "recentLearnings": [
-    {"title": "Token Space Learning", "desc": "Agent 学习优化上下文 C 而非权重 θ", "source": "SAGE/Reflexion 论文"},
-    {"title": "四层记忆架构", "desc": "L1-L4 分层，Ebbinghaus 遗忘曲线", "source": "MemGPT"},
-    {"title": "状态机驱动", "desc": "IDLE→WORKING→REFLECT→LEARN→IDLE", "source": "Stately AI"},
-    {"title": "智能触发器", "desc": "置信度/复杂度/模式/时间/错误 5种", "source": "自主设计"},
-    {"title": "长任务架构", "desc": "分片+持久化+委托+进度输出", "source": "Anthropic Long-Running Agents"}
+    {"title": "向量化混合检索", "desc": "语义 70% + 关键词 30%，智谱 embedding-3", "source": "协同优化"},
+    {"title": "Runtime Enforcement", "desc": "触发器 + 谓词 + 强制动作", "source": "arxiv 2503.18666"},
+    {"title": "Reflexion 框架", "desc": "Actor + Evaluator + Self-Reflection", "source": "Shinn et al. 2023"},
+    {"title": "行为守卫脚本", "desc": "运行时检查框架执行", "source": "自主设计"},
+    {"title": "CORE_RULES.md", "desc": "强制执行的检查清单", "source": "框架落地"}
   ],
   "recentReflections": [
-    {"title": "深度调研任务", "success": 4, "improvement": "长任务需提前告知用户预计时间"},
-    {"title": "响应延迟问题处理", "success": 3, "improvement": "需要任务后台执行机制"}
+    {"title": "过度调试问题", "success": 4, "improvement": "简单问题简单回答，不深入调试除非用户要求"},
+    {"title": "框架未应用问题", "success": 5, "improvement": "创建 CORE_RULES.md + 行为守卫脚本"}
   ],
   "goals": [
     {"icon": "🏃", "title": "减肥 15 斤", "sub": "每周运动 ≥ 5 次", "progress": 30},
     {"icon": "⚡", "title": "改善生活习惯", "sub": "调整作息时间", "progress": 50},
-    {"icon": "🚀", "title": "OpenClaw 生态优化", "sub": "自我进化框架完成", "progress": 90}
+    {"icon": "🚀", "title": "OpenClaw 生态优化", "sub": "自我进化框架完成", "progress": 95}
   ],
   "systemStatus": {
     "openclaw": "ok",
     "gateway": "ok",
-    "feishu": "warning",
+    "feishu": "ok",
     "qqbot": "ok",
     "gitee": "ok",
     "github": "ok",
-    "mysql": "ok"
+    "mysql": "ok",
+    "memorySearch": "ok"
   },
   "capabilities": [
     { "icon": "📝", "name": "飞书文档读写" },
@@ -122,18 +121,19 @@
     { "icon": "💻", "name": "Claude Code 协作" },
     { "icon": "🧠", "name": "记忆与学习" },
     { "icon": "🤖", "name": "状态机驱动" },
-    { "icon": "⚡", "name": "智能触发器" }
+    { "icon": "⚡", "name": "智能触发器" },
+    { "icon": "🔎", "name": "向量化搜索" }
   ],
   "timeline": [
-    { "time": "04:07", "content": "主动学习 - OpenClaw 核心研究" },
-    { "time": "09:01", "content": "GitHub 日报发送" },
-    { "time": "09:06", "content": "AI 日报发送（飞书失败，QQ 成功）" },
-    { "time": "12:00", "content": "自我进化框架设计（Phase 1-5）" },
-    { "time": "13:00", "content": "框架实施：状态机+触发器+记忆+技能" },
-    { "time": "15:00", "content": "工作空间文件优化（-70%冗余）" },
-    { "time": "17:00", "content": "GitHub Pages 部署成功" },
-    { "time": "21:00", "content": "每日进化任务完成" },
-    { "time": "22:47", "content": "运行原理深度研究 V2" },
-    { "time": "23:00", "content": "协作面板更新" }
+    { "time": "09:00", "content": "GitHub日报自动发送" },
+    { "time": "10:29", "content": "Memory Search 优化（智谱 embedding-3）" },
+    { "time": "10:52", "content": "Gateway 故障修复（Paused → Running）" },
+    { "time": "11:29", "content": "工作区备份" },
+    { "time": "11:41", "content": "框架验证测试" },
+    { "time": "12:53", "content": "OpenClaw 更新到 2026.3.13" },
+    { "time": "13:28", "content": "流式传输优化" },
+    { "time": "13:39", "content": "框架执行机制研究（Runtime Enforcement）" },
+    { "time": "14:21", "content": "CORE_RULES + Reflexion 引擎 + 行为守卫" },
+    { "time": "14:35", "content": "协作面板数据更新" }
   ]
 }
