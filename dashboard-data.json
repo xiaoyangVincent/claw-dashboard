@@ -1,20 +1,20 @@
 {
   "meta": {
-    "lastUpdate": "2026-03-16T14:35:00+08:00",
+    "lastUpdate": "2026-03-19T23:28:00+08:00",
     "version": "2.1"
   },
   "stats": {
     "skills": 24,
-    "learnings": 35,
-    "problemsSolved": 12,
-    "activeProjects": 4,
-    "todayTasks": 8,
-    "weekInteractions": 75
+    "learnings": 38,
+    "problemsSolved": 13,
+    "activeProjects": 3,
+    "todayTasks": 5,
+    "weekInteractions": 45
   },
   "agentState": {
-    "current": "WORKING",
-    "lastTransition": "2026-03-16T14:35:00+08:00",
-    "transitionsToday": 5
+    "current": "IDLE",
+    "lastTransition": "2026-03-19T23:28:00+08:00",
+    "transitionsToday": 8
   },
   "evolution": {
     "confidenceRate": 0.90,
@@ -32,32 +32,32 @@
   },
   "weekOverview": {
     "monday": 12,
-    "tuesday": 0,
-    "wednesday": 0,
-    "thursday": 0,
+    "tuesday": 8,
+    "wednesday": 10,
+    "thursday": 8,
     "friday": 0,
     "saturday": 0,
     "sunday": 0
   },
   "projects": [
     {
-      "name": "自我进化框架",
-      "progress": 100,
-      "status": "done",
-      "description": "完成 Phase 1-5 + Runtime Enforcement 研究",
-      "files": ["SELF_EVOLUTION_FRAMEWORK.md", "AGENT_STATE_MACHINE.md", "SMART_TRIGGERS.md", "LONG_TASK_ARCHITECTURE.md", "REFLEXION_ENGINE.md"]
+      "name": "首程病历项目",
+      "progress": 75,
+      "status": "active",
+      "description": "功能四数据库表创建、Unicode修复、接口测试13/14通过",
+      "nextStep": "前端联调"
     },
     {
-      "name": "首程病历项目",
-      "progress": 65,
+      "name": "转正准备",
+      "progress": 80,
       "status": "active",
-      "description": "8个API接口已完成，待前端联调",
-      "nextStep": "前端联调 → 测试上线"
+      "description": "谈话资料整理完成，策略制定完成",
+      "nextStep": "等待谈话"
     },
     {
       "name": "OLM 项目",
       "progress": 40,
-      "status": "active",
+      "status": "paused",
       "description": "Config、Backup 模块完成",
       "nextStep": "Monitor、Update、Restore 模块"
     },
@@ -65,41 +65,31 @@
       "name": "协作管理系统",
       "progress": 10,
       "status": "planned",
-      "description": "等待 OpenClaw + Claude Code 融合方案",
+      "description": "等待融合方案设计",
       "nextStep": "设计融合方案"
-    },
-    {
-      "name": "婚礼攻略",
-      "progress": 100,
-      "status": "done",
-      "description": "2026-03-06 完成"
     }
   ],
   "todayTasks": [
-    {"time": "09:00", "title": "GitHub日报", "done": true, "detail": "自动发送"},
-    {"time": "10:29", "title": "Memory Search 优化", "done": true, "detail": "智谱 embedding-3 + 混合检索"},
-    {"time": "10:52", "title": "Gateway 故障修复", "done": true, "detail": "Paused → Running"},
-    {"time": "11:41", "title": "框架验证测试", "done": true, "detail": "CLI搜索 + 工具测试"},
-    {"time": "12:53", "title": "OpenClaw 更新 3.13", "done": true, "detail": "2026.3.11 → 2026.3.13"},
-    {"time": "13:28", "title": "流式传输优化", "done": true, "detail": "minChars 800→2000, maxChars 1200→3000"},
-    {"time": "13:39", "title": "框架执行机制研究", "done": true, "detail": "Runtime Enforcement + Reflexion + 行为守卫"},
-    {"time": "14:26", "title": "新会话启动", "done": true, "detail": "周一记忆维护日"}
+    {"time": "10:00", "title": "转正谈话资料整理", "done": true, "detail": "公司分析、策略制定"},
+    {"time": "11:30", "title": "职业规划分析", "done": true, "detail": "骑驴找马策略确定"},
+    {"time": "19:00", "title": "首程病历日报更新", "done": true, "detail": "进展同步"},
+    {"time": "19:15", "title": "数据库表创建", "done": true, "detail": "ai_course_conversation、ai_course_analysis"},
+    {"time": "19:30", "title": "代码推送", "done": true, "detail": "两个仓库"}
   ],
   "recentLearnings": [
-    {"title": "向量化混合检索", "desc": "语义 70% + 关键词 30%，智谱 embedding-3", "source": "协同优化"},
-    {"title": "Runtime Enforcement", "desc": "触发器 + 谓词 + 强制动作", "source": "arxiv 2503.18666"},
-    {"title": "Reflexion 框架", "desc": "Actor + Evaluator + Self-Reflection", "source": "Shinn et al. 2023"},
-    {"title": "行为守卫脚本", "desc": "运行时检查框架执行", "source": "自主设计"},
-    {"title": "CORE_RULES.md", "desc": "强制执行的检查清单", "source": "框架落地"}
+    {"title": "Regex.Unescape()", "desc": "处理 Unicode 转义字符", "source": "功能四开发"},
+    {"title": "职业规划策略", "desc": "骑驴找马，转正后看机会", "source": "转正准备"},
+    {"title": "公司现状分析", "desc": "依赖补贴融资，产品竞争力有限", "source": "转正准备"},
+    {"title": "字段分批生成", "desc": "JSON字段映射处理策略", "source": "功能四开发"}
   ],
   "recentReflections": [
-    {"title": "过度调试问题", "success": 4, "improvement": "简单问题简单回答，不深入调试除非用户要求"},
-    {"title": "框架未应用问题", "success": 5, "improvement": "创建 CORE_RULES.md + 行为守卫脚本"}
+    {"title": "协作面板未按时更新", "success": 3, "improvement": "23:00任务需严格执行"},
+    {"title": "转正策略清晰", "success": 5, "improvement": "骑驴找马，利用平台积累"}
   ],
   "goals": [
     {"icon": "🏃", "title": "减肥 15 斤", "sub": "每周运动 ≥ 5 次", "progress": 30},
     {"icon": "⚡", "title": "改善生活习惯", "sub": "调整作息时间", "progress": 50},
-    {"icon": "🚀", "title": "OpenClaw 生态优化", "sub": "自我进化框架完成", "progress": 95}
+    {"icon": "🚀", "title": "首程病历上线", "sub": "功能四联调测试", "progress": 75}
   ],
   "systemStatus": {
     "openclaw": "ok",
@@ -125,15 +115,11 @@
     { "icon": "🔎", "name": "向量化搜索" }
   ],
   "timeline": [
-    { "time": "09:00", "content": "GitHub日报自动发送" },
-    { "time": "10:29", "content": "Memory Search 优化（智谱 embedding-3）" },
-    { "time": "10:52", "content": "Gateway 故障修复（Paused → Running）" },
-    { "time": "11:29", "content": "工作区备份" },
-    { "time": "11:41", "content": "框架验证测试" },
-    { "time": "12:53", "content": "OpenClaw 更新到 2026.3.13" },
-    { "time": "13:28", "content": "流式传输优化" },
-    { "time": "13:39", "content": "框架执行机制研究（Runtime Enforcement）" },
-    { "time": "14:21", "content": "CORE_RULES + Reflexion 引擎 + 行为守卫" },
-    { "time": "14:35", "content": "协作面板数据更新" }
+    { "time": "10:00", "content": "转正谈话资料整理" },
+    { "time": "11:30", "content": "职业规划分析完成" },
+    { "time": "19:00", "content": "首程病历日报更新" },
+    { "time": "19:15", "content": "数据库表创建" },
+    { "time": "19:30", "content": "代码推送两个仓库" },
+    { "time": "23:28", "content": "协作面板数据更新" }
   ]
 }
