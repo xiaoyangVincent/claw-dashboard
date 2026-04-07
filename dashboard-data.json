@@ -1,39 +1,39 @@
 {
   "meta": {
-    "lastUpdate": "2026-03-25T23:14:00+08:00",
-    "version": "2.1"
+    "lastUpdate": "2026-04-07T23:20:00+08:00",
+    "version": "2.2"
   },
   "stats": {
-    "skills": 24,
-    "learnings": 47,
-    "problemsSolved": 13,
-    "activeProjects": 2,
-    "todayTasks": 7,
-    "weekInteractions": 52
+    "skills": 25,
+    "learnings": 18,
+    "problemsSolved": 15,
+    "activeProjects": 4,
+    "todayTasks": 6,
+    "weekInteractions": 6
   },
   "agentState": {
     "current": "IDLE",
-    "lastTransition": "2026-03-25T21:30:00+08:00",
-    "transitionsToday": 12
+    "lastTransition": "2026-04-07T23:00:00+08:00",
+    "transitionsToday": 6
   },
   "evolution": {
-    "confidenceRate": 0.92,
+    "confidenceRate": 0.90,
     "hallucinationRate": 0.02,
-    "reflectionCount": 4,
-    "skillsCount": 7,
-    "patternsCount": 6,
+    "reflectionCount": 3,
+    "skillsCount": 8,
+    "patternsCount": 7,
     "triggers": {
       "confidence": 4,
       "complexity": 3,
       "pattern": 2,
-      "time": 2,
+      "time": 3,
       "error": 1
     }
   },
   "weekOverview": {
-    "monday": 8,
+    "monday": 0,
     "tuesday": 6,
-    "wednesday": 12,
+    "wednesday": 0,
     "thursday": 0,
     "friday": 0,
     "saturday": 0,
@@ -42,42 +42,56 @@
   "projects": [
     {
       "name": "首程病历项目",
-      "progress": 75,
-      "status": "active",
-      "description": "功能四需求分析完成，开发计划已制定",
-      "nextStep": "阶段一：基础设施开发"
+      "progress": 85,
+      "status": "warning",
+      "description": "功能四编码+自测完成，4/4计划上线日已过，状态待确认",
+      "nextStep": "确认上线状态"
     },
     {
-      "name": "OLM 项目",
-      "progress": 40,
+      "name": "小红书运营「码农不焦虑」",
+      "progress": 20,
+      "status": "active",
+      "description": "冷启动中（5篇），运营计划v1.0已制定",
+      "nextStep": "周三4/8发布第6篇笔记"
+    },
+    {
+      "name": "职业转型",
+      "progress": 15,
+      "status": "active",
+      "description": "4/2决定离开太始，骑驴找马策略",
+      "nextStep": "简历更新+开始看机会"
+    },
+    {
+      "name": "医生B端使用习惯分析",
+      "progress": 10,
       "status": "paused",
-      "description": "Config、Backup 模块完成",
-      "nextStep": "Monitor、Update、Restore 模块"
+      "description": "立项中，反馈入口方案待交付",
+      "nextStep": "需求评审+数据采集"
     }
   ],
   "todayTasks": [
-    {"time": "08:08", "title": "GitHub日报", "done": true, "detail": "DeerFlow登顶热榜"},
-    {"time": "09:24", "title": "AI日报", "done": true, "detail": "Luma AI Uni-1、美团LongCat"},
-    {"time": "09:49", "title": "DeerFlow研究", "done": true, "detail": "对比分析报告"},
-    {"time": "10:04", "title": "Hermes Agent研究", "done": true, "detail": "学习循环、四层记忆"},
-    {"time": "10:15", "title": "Supermemory研究", "done": true, "detail": "三大基准#1，可集成"},
-    {"time": "20:14", "title": "工作日报", "done": true, "detail": "今日研究产出"},
-    {"time": "21:00", "title": "每日进化", "done": true, "detail": "新增学习记录"}
+    {"time": "08:00", "title": "AI日报", "done": true, "detail": "中国AI调用量连续5周超美国、Cursor 3发布"},
+    {"time": "08:10", "title": "GitHub日报", "done": true, "detail": "Google AI Edge双项目霸榜"},
+    {"time": "10:14", "title": "小红书选题推送", "done": true, "detail": "3个标题建议已推送给洋哥"},
+    {"time": "12:19", "title": "小红书自动互动(午)", "done": false, "detail": "MCP不支持评论API"},
+    {"time": "20:50", "title": "工作日报", "done": true, "detail": "节后首日P0事项确认"},
+    {"time": "21:00", "title": "每日进化", "done": true, "detail": "MEMORY v12, LRN-018"}
   ],
   "recentLearnings": [
-    {"title": "DeerFlow架构", "desc": "子代理并行调度、Docker沙箱、丰富输出", "source": "框架研究"},
-    {"title": "Hermes学习循环", "desc": "自动创建技能、技能自我改进", "source": "框架研究"},
-    {"title": "Supermemory记忆引擎", "desc": "自动记忆提取、时间感知、矛盾解决", "source": "框架研究"},
-    {"title": "OpenClaw定位", "desc": "多渠道+Canvas是独特优势", "source": "对比分析"}
+    {"title": "xiaohongshu-mcp无评论API", "desc": "客户端只有5个命令，自动互动需人工补位", "source": "运营实战"},
+    {"title": "AIBase日报源不稳定", "desc": "有时未更新，需增加36kr/量子位备选", "source": "日报实战"},
+    {"title": "GitHub Trending RSS", "desc": "mshibanami RSS feed稳定可用，10项/天", "source": "数据采集"},
+    {"title": "中国AI调用量超美国", "desc": "OpenRouter数据：中国12.96万亿Token/周", "source": "AI日报"}
   ],
   "recentReflections": [
-    {"title": "AI Agent框架对比", "success": 5, "improvement": "子代理和记忆能力需加强"},
-    {"title": "Supermemory可集成", "success": 4, "improvement": "有OpenClaw官方插件"}
+    {"title": "小红书运营计划v1.0", "success": 4, "improvement": "MCP互动功能缺失需解决"},
+    {"title": "定时任务执行率67%", "success": 4, "improvement": "评论API是瓶颈"}
   ],
   "goals": [
     {"icon": "🏃", "title": "减肥 15 斤", "sub": "每周运动 ≥ 5 次", "progress": 30},
-    {"icon": "⚡", "title": "改善生活习惯", "sub": "调整作息时间", "progress": 50},
-    {"icon": "🚀", "title": "首程病历上线", "sub": "功能四开发启动", "progress": 75}
+    {"icon": "📱", "title": "小红书冷启动", "sub": "2个月突破1000粉", "progress": 5},
+    {"icon": "💼", "title": "职业转型", "sub": "骑驴找马，稳到孩子出生", "progress": 15},
+    {"icon": "🚀", "title": "首程病历上线", "sub": "状态待确认", "progress": 85}
   ],
   "systemStatus": {
     "openclaw": "ok",
@@ -98,19 +112,18 @@
     { "icon": "🤝", "name": "QQ/飞书消息" },
     { "icon": "💻", "name": "Claude Code 协作" },
     { "icon": "🧠", "name": "记忆与学习" },
-    { "icon": "🤖", "name": "状态机驱动" },
-    { "icon": "⚡", "name": "智能触发器" },
-    { "icon": "🔎", "name": "向量化搜索" }
+    { "icon": "📱", "name": "小红书 MCP" },
+    { "icon": "🔎", "name": "向量化搜索" },
+    { "icon": "🛠️", "name": "子代理委托" }
   ],
   "timeline": [
-    { "time": "08:08", "content": "GitHub日报发送" },
-    { "time": "09:24", "content": "AI日报发送" },
-    { "time": "09:49", "content": "DeerFlow vs OpenClaw对比研究" },
-    { "time": "10:04", "content": "Hermes Agent深度研究" },
-    { "time": "10:15", "content": "Supermemory深度研究" },
-    { "time": "20:14", "content": "工作日报发送" },
-    { "time": "21:00", "content": "每日进化记录" },
-    { "time": "21:30", "content": "日程规划完成" },
-    { "time": "23:14", "content": "协作面板数据更新" }
+    { "time": "08:00", "content": "AI日报发送飞书群" },
+    { "time": "08:10", "content": "GitHub日报发送飞书群" },
+    { "time": "10:14", "content": "小红书选题推送（3个标题建议）" },
+    { "time": "12:19", "content": "小红书互动尝试（MCP限制未果）" },
+    { "time": "20:50", "content": "工作日报发送飞书私聊" },
+    { "time": "21:00", "content": "每日进化（MEMORY v12）" },
+    { "time": "21:30", "content": "明日日程规划（周三发布日）" },
+    { "time": "23:20", "content": "协作面板数据更新" }
   ]
 }
