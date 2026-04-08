@@ -1,20 +1,20 @@
 {
   "meta": {
-    "lastUpdate": "2026-04-07T23:20:00+08:00",
+    "lastUpdate": "2026-04-08T23:05:00+08:00",
     "version": "2.2"
   },
   "stats": {
     "skills": 25,
-    "learnings": 18,
+    "learnings": 21,
     "problemsSolved": 15,
     "activeProjects": 4,
-    "todayTasks": 6,
-    "weekInteractions": 6
+    "todayTasks": 8,
+    "weekInteractions": 0
   },
   "agentState": {
     "current": "IDLE",
-    "lastTransition": "2026-04-07T23:00:00+08:00",
-    "transitionsToday": 6
+    "lastTransition": "2026-04-08T23:05:00+08:00",
+    "transitionsToday": 8
   },
   "evolution": {
     "confidenceRate": 0.90,
@@ -32,8 +32,8 @@
   },
   "weekOverview": {
     "monday": 0,
-    "tuesday": 6,
-    "wednesday": 0,
+    "tuesday": 0,
+    "wednesday": 8,
     "thursday": 0,
     "friday": 0,
     "saturday": 0,
@@ -43,55 +43,57 @@
     {
       "name": "首程病历项目",
       "progress": 85,
-      "status": "warning",
-      "description": "功能四编码+自测完成，4/4计划上线日已过，状态待确认",
-      "nextStep": "确认上线状态"
+      "status": "danger",
+      "description": "功能四已完成，4/4上线日已过5天，连续无反馈",
+      "nextStep": "明天必须确认上线状态"
     },
     {
       "name": "小红书运营「码农不焦虑」",
-      "progress": 20,
+      "progress": 22,
       "status": "active",
-      "description": "冷启动中（5篇），运营计划v1.0已制定",
-      "nextStep": "周三4/8发布第6篇笔记"
+      "description": "验证期第2天（5篇已发），选题推送正常",
+      "nextStep": "发布第6篇笔记（待洋哥选择）"
     },
     {
       "name": "职业转型",
       "progress": 15,
       "status": "active",
-      "description": "4/2决定离开太始，骑驴找马策略",
+      "description": "4/2决定离开太始，简历未更新",
       "nextStep": "简历更新+开始看机会"
     },
     {
       "name": "医生B端使用习惯分析",
       "progress": 10,
       "status": "paused",
-      "description": "立项中，反馈入口方案待交付",
-      "nextStep": "需求评审+数据采集"
+      "description": "反馈方案4/7截止日已过，交付状态未知",
+      "nextStep": "确认是否已交付赵博"
     }
   ],
   "todayTasks": [
-    {"time": "08:00", "title": "AI日报", "done": true, "detail": "中国AI调用量连续5周超美国、Cursor 3发布"},
-    {"time": "08:10", "title": "GitHub日报", "done": true, "detail": "Google AI Edge双项目霸榜"},
-    {"time": "10:14", "title": "小红书选题推送", "done": true, "detail": "3个标题建议已推送给洋哥"},
-    {"time": "12:19", "title": "小红书自动互动(午)", "done": false, "detail": "MCP不支持评论API"},
-    {"time": "20:50", "title": "工作日报", "done": true, "detail": "节后首日P0事项确认"},
-    {"time": "21:00", "title": "每日进化", "done": true, "detail": "MEMORY v12, LRN-018"}
+    {"time": "08:00", "title": "AI日报", "done": true, "detail": "千问3.6Plus万亿Token、MiniMax开源、腾讯探梦DreamNow"},
+    {"time": "08:10", "title": "GitHub日报", "done": true, "detail": "GitNexus 24.5k⭐、qmd本地搜索、NVIDIA personaplex"},
+    {"time": "10:20", "title": "小红书选题推送", "done": true, "detail": "3个选题建议，推荐效率对比型"},
+    {"time": "12:00", "title": "小红书自动互动(午)", "done": false, "detail": "MCP不支持评论API"},
+    {"time": "19:05", "title": "小红书发布提醒", "done": true, "detail": "黄金发布窗口+互动建议"},
+    {"time": "20:00", "title": "小红书自动互动(晚)", "done": false, "detail": "MCP不支持评论API"},
+    {"time": "20:35", "title": "工作日报", "done": true, "detail": "项目风险提醒（首程/反馈/简历）"},
+    {"time": "21:00", "title": "每日进化", "done": true, "detail": "MEMORY v13, LRN-020/021, 4文件更新"}
   ],
   "recentLearnings": [
+    {"title": "PowerShell $env:变量设置失效", "desc": "exec中用cmd /c替代PowerShell环境变量设置", "source": "系统调试"},
+    {"title": "小红书MCP搜索可能超时", "desc": "Tavily web_search作为降级方案", "source": "选题推送"},
     {"title": "xiaohongshu-mcp无评论API", "desc": "客户端只有5个命令，自动互动需人工补位", "source": "运营实战"},
-    {"title": "AIBase日报源不稳定", "desc": "有时未更新，需增加36kr/量子位备选", "source": "日报实战"},
-    {"title": "GitHub Trending RSS", "desc": "mshibanami RSS feed稳定可用，10项/天", "source": "数据采集"},
-    {"title": "中国AI调用量超美国", "desc": "OpenRouter数据：中国12.96万亿Token/周", "source": "AI日报"}
+    {"title": "千问3.6Plus单日万亿Token", "desc": "登顶OpenRouter全球调用榜", "source": "AI日报"}
   ],
   "recentReflections": [
-    {"title": "小红书运营计划v1.0", "success": 4, "improvement": "MCP互动功能缺失需解决"},
-    {"title": "定时任务执行率67%", "success": 4, "improvement": "评论API是瓶颈"}
+    {"title": "定时任务执行率71%", "success": 5, "improvement": "MCP评论和搜索超时是两大瓶颈"},
+    {"title": "用户7天无对话", "success": 3, "improvement": "定时任务照常运行，主动提醒项目风险"}
   ],
   "goals": [
     {"icon": "🏃", "title": "减肥 15 斤", "sub": "每周运动 ≥ 5 次", "progress": 30},
-    {"icon": "📱", "title": "小红书冷启动", "sub": "2个月突破1000粉", "progress": 5},
-    {"icon": "💼", "title": "职业转型", "sub": "骑驴找马，稳到孩子出生", "progress": 15},
-    {"icon": "🚀", "title": "首程病历上线", "sub": "状态待确认", "progress": 85}
+    {"icon": "📱", "title": "小红书冷启动", "sub": "验证期14天14篇（1/14完成）", "progress": 7},
+    {"icon": "💼", "title": "职业转型", "sub": "简历更新+看机会", "progress": 15},
+    {"icon": "🚀", "title": "首程病历上线", "sub": "⚠️ 已滞后5天", "progress": 85}
   ],
   "systemStatus": {
     "openclaw": "ok",
@@ -117,13 +119,13 @@
     { "icon": "🛠️", "name": "子代理委托" }
   ],
   "timeline": [
-    { "time": "08:00", "content": "AI日报发送飞书群" },
-    { "time": "08:10", "content": "GitHub日报发送飞书群" },
-    { "time": "10:14", "content": "小红书选题推送（3个标题建议）" },
-    { "time": "12:19", "content": "小红书互动尝试（MCP限制未果）" },
-    { "time": "20:50", "content": "工作日报发送飞书私聊" },
-    { "time": "21:00", "content": "每日进化（MEMORY v12）" },
-    { "time": "21:30", "content": "明日日程规划（周三发布日）" },
-    { "time": "23:20", "content": "协作面板数据更新" }
+    { "time": "08:00", "content": "AI日报：千问万亿Token、MiniMax开源" },
+    { "time": "08:10", "content": "GitHub日报：GitNexus/qmd/NVIDIA personaplex" },
+    { "time": "10:20", "content": "小红书选题推送（MCP超时→Tavily降级）" },
+    { "time": "19:05", "content": "小红书发布提醒（黄金窗口19-21点）" },
+    { "time": "20:35", "content": "工作日报（首程/反馈/简历3个P0风险）" },
+    { "time": "21:00", "content": "每日进化（LRN-020/021，4文件更新）" },
+    { "time": "21:30", "content": "明日日程规划（周四，3个P0确认）" },
+    { "time": "23:05", "content": "协作面板数据更新" }
   ]
 }
